@@ -1,141 +1,17 @@
-import { QuizConfig, ResultProfile, Question, GenerationType } from './types';
-
-export const QUIZ_CONFIG: QuizConfig = {
-  title: "What is your Mental Age?",
-  subtitle: "Are you a spiritual Boomer or a chaotic Gen Alpha?",
-  totalQuestions: 8,
-};
-
-export const RESULTS: Record<GenerationType, ResultProfile> = {
-  BOOMER: {
-    id: 'BOOMER',
-    label: "The Lawn Guardian (Boomer)",
-    oneLiner: "You print out emails and own a landline 'just in case'.",
-    color: "bg-stone-200 text-stone-900",
-    accent: "border-stone-800",
-    stats: [
-      { label: "Tech Confusion", value: 95 },
-      { label: "Home Equity", value: 80 },
-      { label: "Cringe Factor", value: 10 },
-    ]
-  },
-  MILLENNIAL: {
-    id: 'MILLENNIAL',
-    label: "The Nostalgia Merchant",
-    oneLiner: "You're still waiting for your Hogwarts letter and pause movies to explain the plot.",
-    color: "bg-pink-200 text-pink-900",
-    accent: "border-pink-900",
-    stats: [
-      { label: "Anxiety", value: 90 },
-      { label: "Plant Ownership", value: 85 },
-      { label: "Side Parts", value: 100 },
-    ]
-  },
-  GEN_Z: {
-    id: 'GEN_Z',
-    label: "The Chaos Curator (Gen Z)",
-    oneLiner: "Your humor is broken, you have 500 unread messages, and you're thriving.",
-    color: "bg-lime-300 text-lime-900",
-    accent: "border-lime-900",
-    stats: [
-      { label: "Screen Time", value: 98 },
-      { label: "Irony Layers", value: 85 },
-      { label: "Vibe Check", value: 92 },
-    ]
-  },
-  GEN_ALPHA: {
-    id: 'GEN_ALPHA',
-    label: "The iPad Shaman (Gen Alpha)",
-    oneLiner: "You learned to swipe before you learned to walk. Skibidi etc.",
-    color: "bg-cyan-300 text-cyan-900",
-    accent: "border-cyan-900",
-    stats: [
-      { label: "Attention Span", value: 5 },
-      { label: "Robux Wealth", value: 99 },
-      { label: "Slang Density", value: 100 },
-    ]
-  }
-};
-
-export const QUESTIONS: Question[] = [
-  {
-    id: 1,
-    text: "It's 9:00 PM on a Friday. What are you doing?",
-    options: [
-      { text: "Watching the news, then go to bed.", type: 'BOOMER' },
-      { text: "Watching a comfort show.", type: 'MILLENNIAL' },
-      { text: "Scrolling on TikTok and rotting in bed.", type: 'GEN_Z' },
-      { text: "Playing video games with friends in a discord/facetime call.", type: 'GEN_ALPHA' }
-    ]
-  },
-  {
-    id: 2,
-    text: "How do you handle a phone call?",
-    options: [
-      { text: "Facetime or no call at all.", type: 'GEN_ALPHA' },
-      { text: "Let it ring a couple times before picking up.", type: 'GEN_Z' },
-      { text: "Answer immediately with a 'Hello?!'", type: 'BOOMER' },
-      { text: "Wait for it to end, then text 'Did you call?'", type: 'MILLENNIAL' }
-    ]
-  },
-  {
-    id: 3,
-    text: "Pick your drink of choice.",
-    options: [
-      { text: "Coffee or Tea.", type: 'BOOMER' },
-      { text: "Sparkling Water or Cold Brew.", type: 'MILLENNIAL' },
-      { text: "Iced Matcha Latte.", type: 'GEN_Z' },
-      { text: "Boba Tea.", type: 'GEN_ALPHA' }
-    ]
-  },
-  {
-    id: 4,
-    text: "How do you react to a funny text message?",
-    options: [
-      { text: "💀😭", type: 'GEN_Z' },
-      { text: "😂 or LOL", type: 'MILLENNIAL' },
-      { text: "haha", type: 'BOOMER' },
-      { text: "Stickers and GIFs.", type: 'GEN_ALPHA' }
-    ]
-  },
-  {
-    id: 5,
-    text: "Someone sends you a PDF to sign.",
-    options: [
-      { text: "Print it, sign with pen, scan it.", type: 'BOOMER' },
-      { text: "Use a proper e-sign tool like an adult.", type: 'MILLENNIAL' },
-      { text: "Screenshot it, draw on it with my finger, send back.", type: 'GEN_Z' },
-      { text: "'What's a PDF?'", type: 'GEN_ALPHA' }
-    ]
-  },
-  {
-    id: 6,
-    text: "Choose a home aesthetic.",
-    options: [
-      { text: "Lots of gray and beige tones, indoor plants, and sleek furniture.", type: 'MILLENNIAL' },
-      { text: "LED Strips and bright colors.", type: 'GEN_ALPHA' },
-      { text: "Vinyl records, quirky lighting, loud colors.", type: 'GEN_Z' },
-      { text: "Wall-to-wall carpet & china cabinets.", type: 'BOOMER' }
-    ]
-  },
-  {
-    id: 7,
-    text: "Your internet goes down for 5 minutes.",
-    options: [
-      { text: "Call the ISP immediately and demand to speak to a manager.", type: 'BOOMER' },
-      { text: "Panic slightly, then reset the router.", type: 'MILLENNIAL' },
-      { text: "Switch to data and continue doing what you were doing.", type: 'GEN_Z' },
-      { text: "Panic and Meltdown.", type: 'GEN_ALPHA' }
-    ]
-  },
-  {
-    id: 8,
-    text: "Final Vibe Check: Are you cool?",
-    options: [
-      { text: "I was cool back in the day.", type: 'MILLENNIAL' },
-      { text: "What does it mean to be cool?", type: 'BOOMER' },
-      { text: "I don't really care.", type: 'GEN_Z' },
-      { text: "Yeah. I'm the main character.", type: 'GEN_ALPHA' }
-    ]
-  }
+import{Question}from'./types';
+const o=(label:string,detail:string,age:number,emoji:string,traits:any)=>({label,detail,age,emoji,traits});
+export const QUESTIONS:Question[]=[
+{id:1,kicker:'FRIDAY NIGHT',text:'The week is finally over. What sounds best?',options:[o('Go wherever the night leads','No plan, just momentum',18,'⚡',{curiosity:3,social:3}),o('A small dinner with friends','Good conversation, reasonable volume',29,'🍜',{social:3,stability:1}),o('A comfort show at home','Blanket mode activated',36,'🛋️',{stability:3,reflection:1}),o('Finish a personal project','Quiet progress feels satisfying',44,'🛠️',{reflection:2,stability:2}),o('Early night, great morning','Tomorrow deserves the energy',57,'🌙',{stability:3,reflection:2})]},
+{id:2,kicker:'CHANGE OF PLANS',text:'A carefully planned day suddenly falls apart.',options:[o('Perfect—new adventure','The detour is the story',19,'🗺️',{curiosity:3}),o('Improvise with the group','We will figure it out together',25,'🤝',{social:3,curiosity:1}),o('Take ten, then rebuild','A reset before the reset',34,'🧩',{reflection:2,stability:1}),o('Make a new checklist','Order can be restored',46,'📋',{stability:3}),o('Use the backup plan','Naturally, there is one',61,'🧭',{stability:3,reflection:1})]},
+{id:3,kicker:'GROUP CHAT',text:'Your phone has 87 unread messages.',options:[o('I caused at least half','The chat is a live performance',17,'💥',{social:3}),o('Skim for the funniest parts','Context is optional',23,'😂',{curiosity:1,social:2}),o('Read, react, disappear','Present but mysterious',31,'👀',{reflection:2}),o('Mute it until tonight','Attention is a resource',43,'🔕',{stability:2,reflection:2}),o('Call the important person','One conversation beats 87 texts',58,'☎️',{social:2,stability:2})]},
+{id:4,kicker:'FREE MONEY',text:'You unexpectedly receive $200.',options:[o('Spend it on an experience','Memories first',20,'🎟️',{curiosity:3}),o('Treat friends and myself','Shared joy counts twice',27,'🍕',{social:3}),o('Half fun, half savings','Responsible, but not boring',34,'⚖️',{stability:2,curiosity:1}),o('Put it toward a goal','Future me has plans',45,'🎯',{stability:3}),o('Save all of it','Peace of mind has value',59,'🏦',{stability:3,reflection:1})]},
+{id:5,kicker:'NEW TECHNOLOGY',text:'A strange new app is suddenly everywhere.',options:[o('Already made an account','First wave energy',16,'🚀',{curiosity:3,social:1}),o('Try it because friends did','Social proof accepted',24,'📲',{social:2,curiosity:2}),o('Watch reviews first','I need the actual point',33,'🔎',{reflection:2}),o('Wait until it is useful','Novelty is not a feature',47,'⏳',{stability:2,reflection:2}),o('My current tools work','No update required',63,'🧰',{stability:3})]},
+{id:6,kicker:'CONFLICT',text:'A friend says something that bothers you.',options:[o('React immediately','At least it is honest',19,'🌋',{social:1}),o('Send a thoughtful message','Words need a draft',28,'✍️',{reflection:2,social:1}),o('Talk face-to-face','Tone matters',37,'☕',{social:3,reflection:1}),o('Sleep on it first','Clarity before confrontation',48,'🌤️',{reflection:3,stability:1}),o('Choose whether it matters','Not every hill needs a flag',62,'🕊️',{reflection:3,stability:2})]},
+{id:7,kicker:'VACATION MODE',text:'Pick the trip you would book today.',options:[o('Festival in a new city','Loud, late, unforgettable',20,'🎡',{curiosity:3,social:2}),o('Road trip with friends','Playlist is half the planning',26,'🚗',{social:3,curiosity:2}),o('Food and museums','A little structure, lots to discover',35,'🏛️',{curiosity:2,reflection:1}),o('Cabin with no notifications','Quiet is the destination',48,'🌲',{reflection:3,stability:2}),o('Return to a favorite place','Knowing the good spots is a luxury',60,'🏡',{stability:3})]},
+{id:8,kicker:'LEARNING CURVE',text:'You want to learn something difficult.',options:[o('Jump in and break things','Instructions later',18,'🧪',{curiosity:3}),o('Find a creator who makes it fun','Energy helps information stick',25,'🎬',{curiosity:2,social:1}),o('Take a structured course','A path keeps me moving',35,'🎓',{stability:2,reflection:1}),o('Read deeply and practice','Understanding beats speed',47,'📚',{reflection:3}),o('Find an experienced mentor','Wisdom saves unnecessary mistakes',61,'🧠',{social:2,reflection:3})]},
+{id:9,kicker:'HOME ENERGY',text:'Which space feels most like you?',options:[o('Colorful and constantly changing','A room should evolve',19,'🎨',{curiosity:3}),o('Full of photos and shared memories','People make the place',28,'🖼️',{social:3}),o('Cozy, practical, slightly chaotic','Everything important is nearby',36,'🪴',{stability:1,social:1}),o('Calm and intentionally arranged','Visual quiet, mental quiet',49,'🕯️',{stability:3,reflection:2}),o('Classic pieces built to last','Trends come and go',62,'🪵',{stability:3})]},
+{id:10,kicker:'SUCCESS',text:'A good life mostly means…',options:[o('Collecting great stories','I want to feel fully alive',21,'✨',{curiosity:3}),o('Being surrounded by my people','Connection is the point',29,'🫶',{social:3}),o('Freedom over my own time','Space to choose',37,'🌅',{reflection:2,curiosity:1}),o('Building something meaningful','Leave things better',49,'🏗️',{stability:2,reflection:2}),o('Peace, health, and enough','Less noise, more gratitude',63,'🌿',{stability:3,reflection:3})]},
+{id:11,kicker:'NOSTALGIA',text:'An old song you loved starts playing.',options:[o('Turn it up immediately','This is still my song',20,'🔊',{social:1,curiosity:1}),o('Send it to someone','They need this memory too',28,'💌',{social:3}),o('Fall into a playlist rabbit hole','One memory unlocks twelve more',36,'🎧',{reflection:2}),o('Remember exactly where I was','The details never left',49,'📻',{reflection:3}),o('Smile and keep listening','No need to recreate the past',61,'🍂',{reflection:3,stability:2})]},
+{id:12,kicker:'FINAL INSTINCT',text:'Which sentence feels most true right now?',options:[o('I am just getting started','Possibility everywhere',18,'🌱',{curiosity:3}),o('I am becoming myself','The pieces are connecting',27,'🦋',{curiosity:2,reflection:1}),o('I am building my own rhythm','Less proving, more choosing',36,'🥁',{stability:1,reflection:2}),o('I know what deserves my energy','Priorities feel clearer',49,'🧿',{stability:2,reflection:3}),o('I appreciate what lasts','Depth over novelty',64,'⛰️',{stability:3,reflection:3})]}
 ];
+export const TRAIT_LABELS={curiosity:'Open Explorer',stability:'Grounded Builder',social:'Social Spark',reflection:'Deep Observer'};

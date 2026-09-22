@@ -1,51 +1,6 @@
-import React from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { useQuizEngine } from './hooks/useQuizEngine';
-import { QUESTIONS } from './constants';
-import IntroScreen from './components/IntroScreen';
-import QuestionCard from './components/QuestionCard';
-import LoadingScreen from './components/LoadingScreen';
-import ResultCard from './components/ResultCard';
-
-export default function App() {
-  const { 
-    gameState, 
-    currentQ, 
-    finalResult, 
-    startQuiz, 
-    handleAnswer, 
-    resetQuiz 
-  } = useQuizEngine();
-
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 font-sans selection:bg-black selection:text-white">
-      <div className="w-full max-w-2xl">
-        <AnimatePresence mode="wait">
-          
-          {gameState === 'INTRO' && (
-            <IntroScreen key="intro" onStart={startQuiz} />
-          )}
-
-          {gameState === 'QUIZ' && (
-            <QuestionCard 
-              key="question"
-              question={QUESTIONS[currentQ]} 
-              currentQ={currentQ}
-              totalQ={QUESTIONS.length}
-              onAnswer={handleAnswer}
-            />
-          )}
-
-          {gameState === 'LOADING' && (
-            <LoadingScreen key="loading" />
-          )}
-
-          {gameState === 'RESULT' && (
-            <ResultCard key="result" result={finalResult} onRestart={resetQuiz} />
-          )}
-
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
+import React from'react';import{AnimatePresence,motion}from'framer-motion';import{ArrowLeft,ArrowRight,Moon,RotateCcw,Share2,Sun}from'lucide-react';import{QUESTIONS,TRAIT_LABELS}from'./constants';import{useQuizEngine}from'./hooks/useQuizEngine';import{Trait}from'./types';
+export default function App(){const q=useQuizEngine(),done=q.index===QUESTIONS.length&&q.result;return <main className={q.dark?'dark':''}><div className="ambient a"/><div className="ambient b"/><header><strong>MINDPRINT<span>°</span></strong><button className="icon" onClick={q.toggleTheme} aria-label="Toggle theme">{q.dark?<Sun/>:<Moon/>}</button></header><AnimatePresence mode="wait">
+{q.index<0&&<motion.section className="intro" key="intro" initial={{opacity:0,y:25}} animate={{opacity:1,y:0}} exit={{opacity:0,y:-20}}><div className="orb"><span>?</span></div><p className="eyebrow">A PERSONALITY SNAPSHOT</p><h1>How old is<br/><i>your outlook?</i></h1><p className="lead">Twelve everyday choices reveal your mental-age range and the traits shaping it. No stereotypes. No right answers. Just your current mindprint.</p><div className="pills"><span>12 scenarios</span><span>~3 minutes</span><span>Private by design</span></div><button className="primary" onClick={q.start}>Discover my mindprint <ArrowRight/></button><small>For entertainment and self-reflection—not a psychological assessment.</small></motion.section>}
+{q.index>=0&&q.index<QUESTIONS.length&&<motion.section className="quiz" key={q.index} initial={{opacity:0,x:45}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-45}}><div className="progress"><i style={{width:`${(q.index/QUESTIONS.length)*100}%`}}/></div><div className="qmeta"><button onClick={q.back} disabled={!q.index}><ArrowLeft/> Back</button><span>{String(q.index+1).padStart(2,'0')} / {QUESTIONS.length}</span></div><p className="eyebrow">{QUESTIONS[q.index].kicker}</p><h2>{QUESTIONS[q.index].text}</h2><div className="options">{QUESTIONS[q.index].options.map((o,i)=><motion.button key={o.label} onClick={()=>q.answer(o)} initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{delay:i*.05}}><b>{o.emoji}</b><span><strong>{o.label}</strong><small>{o.detail}</small></span><em>{String.fromCharCode(65+i)}</em></motion.button>)}</div></motion.section>}
+{done&&<motion.section className="result" key="result" initial={{opacity:0,scale:.96}} animate={{opacity:1,scale:1}}><p className="eyebrow">YOUR MINDPRINT</p><div className="age-ring" style={{'--accent':done.color} as React.CSSProperties}><span>Mental age</span><strong>{done.age}</strong><small>years</small></div><h1>{done.title}</h1><p className="lead">{done.subtitle}</p><div className="traits">{(Object.keys(done.traits)as Trait[]).map(t=><div key={t}><span><b>{TRAIT_LABELS[t]}</b><em>{done.traits[t]}%</em></span><i><u style={{width:`${done.traits[t]}%`,background:done.color}}/></i></div>)}</div><div className="insight"><strong>Your blend</strong><p>{blend(done.traits)}</p></div><div className="result-actions"><button className="primary" onClick={()=>navigator.share?.({title:'My Mindprint',text:`My mental age is ${done.age}: ${done.title}`,url:location.href})}><Share2/> Share result</button><button onClick={q.restart}><RotateCcw/> Retake</button></div><small>Results describe this set of choices, not your intelligence, maturity, or identity.</small></motion.section>}</AnimatePresence></main>}
+function blend(t:Record<Trait,number>){const top=(Object.entries(t)as[ Trait,number][]).sort((a,b)=>b[1]-a[1]).slice(0,2).map(x=>TRAIT_LABELS[x[0]]);return`Your strongest signals are ${top[0]} and ${top[1]}. That combination suggests you tend to meet life with both ${top[0].toLowerCase()} energy and a ${top[1].toLowerCase()} instinct.`}

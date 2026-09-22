@@ -1,41 +1,4 @@
-export type GenerationType = 'BOOMER' | 'MILLENNIAL' | 'GEN_Z' | 'GEN_ALPHA';
-
-export interface Stat {
-  label: string;
-  value: number;
-}
-
-export interface ResultProfile {
-  id: GenerationType;
-  label: string;
-  oneLiner: string;
-  color: string;
-  accent: string;
-  stats: Stat[];
-}
-
-export interface Option {
-  text: string;
-  type: GenerationType;
-}
-
-export interface Question {
-  id: number;
-  text: string;
-  options: Option[];
-}
-
-export interface QuizConfig {
-  title: string;
-  subtitle: string;
-  totalQuestions: number;
-}
-
-export type GameState = 'INTRO' | 'QUIZ' | 'LOADING' | 'RESULT';
-
-export interface Scores {
-  BOOMER: number;
-  MILLENNIAL: number;
-  GEN_Z: number;
-  GEN_ALPHA: number;
-}
+export type Trait='curiosity'|'stability'|'social'|'reflection';
+export interface Option{label:string;detail:string;age:number;traits:Partial<Record<Trait,number>>;emoji:string}
+export interface Question{id:number;kicker:string;text:string;options:Option[]}
+export interface Result{age:number;title:string;subtitle:string;color:string;traits:Record<Trait,number>;answers:Option[]}
